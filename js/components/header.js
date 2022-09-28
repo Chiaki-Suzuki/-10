@@ -5,11 +5,9 @@ let itemHeader = {
       <h1><a href="#html"><img src="images/logo_blue.png" alt="リーガルコンタクト"></a></h1>
       <div id="hamburger" class="hamburger sp_only" @click="navShow"><img src="images/hamburger_menu.png" alt="メニューアイコン"></div>
       <div class="flexbtn pc_only">
-          <div class="flexbtn_1">
-              <a href="mailto:koyamajimusyo@legal-contact.com">
-                  <p class="flexbtn_icon"></p>
-                  <p class="flexbtn_text">メールで相談</p>
-              </a>
+          <div class="flexbtn_1" @click="modalShow">
+              <p class="flexbtn_icon"></p>
+              <p class="flexbtn_text">メールで相談</p>
           </div>
           <div class="flexbtn_2">
               <a href="tel:0474011817">
@@ -21,13 +19,11 @@ let itemHeader = {
   </div>
 
   <div class="flexbtn sp_only">
-      <div class="flexbtn_1 rink_btn">
-          <a href="mailto:koyamajimusyo@legal-contact.com">
-              <p class="flexbtn_text">
-                  <span class="flexbtn_icon"><img src="images/icon/mail.svg" alt=""></span>
-                  メールで相談する
-              </p>
-          </a>
+      <div class="flexbtn_1 rink_btn" @click="modalShow">
+          <p class="flexbtn_text">
+              <span class="flexbtn_icon"><img src="images/icon/mail.svg" alt=""></span>
+              メールで相談する
+          </p>
       </div>
       <div class="flexbtn_2 rink_btn">
           <a href="tel:0474011817">
@@ -58,21 +54,37 @@ let itemHeader = {
       <p><small>Copyright 2016&nbsp;LEGAL&nbsp;CONTACT&nbsp;司法書士小山合同事務所</small></p>
     </div>
   </transition>
+
+  <modal v-if="modal"
+    v-on:modalClose="modalClose">
+  </modal>
   </header>
   `,
   data: () => {
     return {
-      isShow: false
+      isShow: false,
+      modal: false
     }
+  },
+  components: {
+    'modal': modal
   },
   methods: {
     // spナビ表示
     navShow: function () {
-      this.isShow = true
+      this.isShow = true;
     },
     // spナビ非表示
     navClose: function () {
-      this.isShow = false
+      this.isShow = false;
+    },
+    // モーダル表示
+    modalShow: function () {
+      this.modal = true;
+    },
+    // モーダル非表示
+    modalClose: function () {
+      this.modal = false;
     }
   }
 };
