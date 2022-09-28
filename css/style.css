@@ -942,7 +942,8 @@ footer {
 .flexbtn.sp_only {
     display: flex;
     position: fixed;
-    bottom: 0;
+    bottom: -1px;
+    left: 0;
     margin-right: 10px;
     width: 100%;
 }
