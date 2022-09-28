@@ -14,52 +14,7 @@
 <body>
     <div id="app">
         <top></top>
-
-
-        
-        
-        
-
-        
-        
-        
-        <section id="section_9" class="section_9 sp_only">
-            
-        </section>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
-    <script>
-        // ページ内リンク
-        $(function () {
-            $('a[href^="#"]').click(function () {
-                let headerHight = 90;
-                let speed = 500;
-                let href = $(this).attr("href");
-                let target = $(href == "#" || href == "" ? 'html' : href);
-                let position = target.offset().top - headerHight;
-                $("html, body").animate({ scrollTop: position }, speed, "swing");
-                return false;
-            });
-        });
-
-        // スマホnav
-        /*open*/
-        $('.hamburger').on('click', function () {
-            $('.section_9').fadeIn(200);
-            $('.header').fadeOut(200);
-            $('.hamburger').fadeOut(200);
-        });
-
-        /*close*/
-        $('ul.nav_sp li a,.section_9,.cross').on('click', function () {
-            $('.section_9').fadeOut(200);
-            $('.header').fadeIn(200);
-            $('.hamburger').fadeIn(200);
-        });
-
-
-    </script>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="js/components/header.js"></script>

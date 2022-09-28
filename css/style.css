@@ -3,6 +3,10 @@
     初期設定
 -------------------------*/
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
     width: 100%;
 }
@@ -1004,7 +1008,7 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    display: none;
+    /* display: none; */
 }
 
 .section_9 div h1 {
@@ -1064,6 +1068,16 @@ ul.nav_sp li a {
     margin-top: 0px;
 }
 
+/* spナビ表示切替 */
+.spnav-enter,
+.spnav-leave-to {
+  opacity: 0;
+}
+
+.spnav-enter-active,
+.spnav-leave-active {
+  transition: opacity .5s;
+}
 
 /* 表示変更 */
 .sp_only {
