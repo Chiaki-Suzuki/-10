@@ -8,39 +8,61 @@ let modal = {
       <form>
         <table>
           <tr>
-            <th>お名前</th>
+            <th>お名前<span class="req">必須</span></th>
             <td>
-              <input type="text"/>
-              <p class="err">入力してください</p>
+              <input type="text"
+                v-model.lazy="name"
+                @blur="nameCheck"
+                :class="{errbox: nameErr}" />
+              <p class="err" v-if="nameErr">{{ nameErrMsg }}</p>
             </td>
           </tr>
           <tr>
-            <th>メールアドレス</th>
+            <th>メールアドレス<span class="req">必須</span></th>
             <td>
-              <input type="email"/>
-              <p class="err">入力してください</p>
+              <input type="email"
+              v-model.lazy="email"
+              @blur="emailCheck"
+              :class="{errbox: emailErr}" />
+              <p class="err" v-if="emailErr">{{ emailErrMsg }}</p>
             </td>
           </tr>
           <tr>
-            <th>電話番号</th>
+            <th>電話番号<span class="req">必須</span></th>
             <td>
-              <input type="tel"/>
-              <p class="err">入力してください</p>
+              <input type="tel"
+                v-model.lazy="tel"
+                @blur="telCheck"
+                :class="{errbox: telErr}" />
+              <p class="err" v-if="telErr">{{ telErrMsg }}</p>
             </td>
           </tr>
           <tr>
-            <th>ご住所</th>
+            <th>ご住所<span class="req">必須</span></th>
             <td>
-              〒<input type="text" class="zip"/>
-              <input type="text" class="address" />
-              <p class="err">入力してください</p>
+              〒<input type="text"
+                class="zip"
+                name="postal"
+                onchange="AjaxZip3.zip2addr(this, '', 'address', 'address')" />
+              <input type="text"
+                class="address"
+                name="address"
+                v-model.lazy="address"
+                @change="addressCheck"
+                :class="{errbox: addressErr}" />
+              <p class="anno">※郵便番号を入力すると自動で住所が入力されます</p>
+              <p class="err" v-if="addressErr">入力してください</p>
             </td>
           </tr>
           <tr>
-            <th>お問い合わせ内容</th>
+            <th>お問い合わせ内容<span class="req">必須</span></th>
             <td>
-              <textarea rows="5"></textarea>
-              <p class="err">入力してください</p>
+              <textarea rows="5"
+                v-model.lazy="sub"
+                @blur="subCheck"
+                :class="{errbox: subErr}">
+              </textarea>
+              <p class="err" v-if="subErr">入力してください</p>
             </td>
           </tr>
           </table>
@@ -49,5 +71,98 @@ let modal = {
     </div>
     <div id="modal-overlay"></div>
   </div>
-  `
+  `,
+  data: () => {
+    return {
+      name: '',
+      nameErr: false,
+      nameErrMsg: '入力してください',
+      email: '',
+      emailErr: false,
+      emailErrMsg: '入力してください',
+      tel: '',
+      telErr: false,
+      telErrMsg: '入力してください',
+      address: '',
+      addressErr: false,
+      sub: '',
+      subErr: false,
+    }
+  },
+  methods: {
+    // 名前のバリデーションチェック
+    nameCheck: function () {
+      // 空の時
+      if (this.name === '') {
+        this.nameErr = true;
+        this.nameErrMsg = '入力してください'
+      }
+      // 数字・記号が含まれているとき
+      else if (this.name.match(/[0-9０-９ -/:-\[-~！-／：-＠［-｀｛-～、-〜”’・]/)) {
+        this.nameErr = true;
+        this.nameErrMsg = '数字・記号は使用できません'
+      }
+      // エラーなし
+      else {
+        this.nameErr = false;
+      }
+    },
+    // メールアドレスのバリデーションチェック
+    emailCheck: function () {
+      // 空の時
+      if (this.email === '') {
+        this.emailErr = true;
+        this.emailErrMsg = '入力してください'
+      }
+      // 数字以外が含まれているとき
+      else if (!this.email.match(/.+@.+\..+/)) {
+        this.emailErr = true;
+        this.emailErrMsg = 'メールアドレスが不正です'
+      }
+      // エラーなし
+      else {
+        this.emailErr = false;
+      }
+    },
+    // 電話番号のバリデーションチェック
+    telCheck: function () {
+      // 空の時
+      if (this.tel === '') {
+        this.telErr = true;
+        this.telErrMsg = '入力してください'
+      }
+      // 数字以外が含まれているとき
+      else if (!this.tel.match(/^[0-9]+$/)) {
+        this.telErr = true;
+        this.telErrMsg = '半角数字以外は使用できません'
+      }
+      // エラーなし
+      else {
+        this.telErr = false;
+      }
+    },
+    // 住所入力チェック
+    addressCheck: function () {
+      console.log(this.address)
+      // 空の時
+      if (this.address === '') {
+        this.addressErr = true;
+      }
+      // エラーなし
+      else {
+        this.addressErr = false;
+      }
+    },
+    // 住所入力チェック
+    subCheck: function() {
+      // 空の時
+      if (this.sub === '') {
+        this.subErr = true;
+      }
+      // エラーなし
+      else {
+        this.subErr = false;
+      }
+    },
+  }
 };
